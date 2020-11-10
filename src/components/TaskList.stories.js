@@ -1,20 +1,20 @@
 import React from 'react';
 
-import TaskList from './TaskList';
+import { PureTaskList } from './TaskList';
 import * as TaskStories from './Task.stories';
 
 export default {
-  component: TaskList,
+  component: PureTaskList,
   title: 'TaskList',
   decorators: [story => <div style={{ padding: '3rem' }}>{story()}</div>],
 };
 
-const Template = args => <TaskList {...args} />;
+const Template = args => <PureTaskList {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
   // Shaping the stories through args composition.
-  // The data was inherited from the Default story in task.stories.js.
+  // The data was inherited the Default story in task.stories.js.
   tasks: [
     { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
     { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
@@ -23,6 +23,8 @@ Default.args = {
     { ...TaskStories.Default.args.task, id: '5', title: 'Task 5' },
     { ...TaskStories.Default.args.task, id: '6', title: 'Task 6' },
   ],
+  onPinTask: Function,
+  onArchiveTask: Function,
 };
 
 export const WithPinnedTasks = Template.bind({});
@@ -33,11 +35,15 @@ WithPinnedTasks.args = {
     ...Default.args.tasks.slice(0, 5),
     { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
   ],
+  onPinTask: Function,
+  onArchiveTask: Function,
 };
 
 export const Loading = Template.bind({});
 Loading.args = {
   tasks: [],
+  onPinTask: Function,
+  onArchiveTask: Function,
   loading: true,
 };
 
